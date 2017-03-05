@@ -16,7 +16,8 @@ width = sizeOfFrame[1]
 video = np.array([frame for frame in vid ])
 
 # Delete random stuff in image
-video[:,:180,:180,:] = 0
+video[:,:225,:100,:] = 0 # Remove top left
+video[:,:220,:125,:] = 0 # Remove top left
 video[:,600:,:100,:] = 0
 video[:,500:,1000:,:] = 0
 

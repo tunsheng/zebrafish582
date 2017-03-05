@@ -12,7 +12,7 @@ from dmd import *
 from visualize import *
 
 # Load Video
-vid = imageio.get_reader('ZebrafishBrain.mp4')
+vid = imageio.get_reader('/home/weyl000/Documents/Assignment/zebrafish582/ZebrafishBrain.mp4')
 sizeOfFrame = vid.get_data(0).shape
 numFrames = len(vid)
 height = sizeOfFrame[0]
@@ -27,6 +27,7 @@ video[:,:220,:125,:] = 0 # Remove top left
 video[:,600:,:100,:] = 0
 video[:,500:,1000:,:] = 0
 
+DEBUG = False
 if DEBUG:
 	plt.imshow(video[50])
 	plt.show()

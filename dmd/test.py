@@ -43,9 +43,10 @@ Y = D[:,1:]
 r = reducedRank(X)
 mu, Phi = dmd(X,Y,r)
 Psi = timeEvolve(X[:,0], t, mu, Phi)
-print("Psi = ", Psi.shape)
-print("D = ", D.shape)
+D_dmd = dot(Phi, Psi)
+
 # Multi-resolution DMD
+print("MRDMD")
 nodes = mrdmd(D)
 D_mrdmd = [dot(*stitch(nodes, i)) for i in range(7)]
 
@@ -67,7 +68,7 @@ plt.subplot(1,3,1)
 plt.imshow(np.abs(D), aspect='auto')
 plt.title('Original D')
 plt.subplot(1,3,2)
-plt.imshow(np.abs(Psi), aspect='auto')
+plt.imshow(np.abs(D_dmd), aspect='auto')
 plt.title("DMD reconstruction of D")
 plt.subplot(1,3,3)
 plt.imshow(np.abs(rD_rec), aspect='auto')

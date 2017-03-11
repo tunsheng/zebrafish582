@@ -1,3 +1,5 @@
+# This scripts runs DMD and MRDMD & compares them
+
 import numpy as np
 import matplotlib
 matplotlib.use('Qt4Agg')
@@ -57,14 +59,12 @@ binary_cirlce = binary_cirlce.T
 # 	im = plt.imshow(gray_video[:, 40].reshape(height, width), cmap='gray')
 # 	plt.show()
 
-DMD = True
-MRDMD = False
-
 # extract input-output matrices
 X = gray_brain[:,:-1]
 Y = gray_brain[:,1:]
 t = np.linspace(0, numFrames, numFrames)
 
+#--------------------------------------------------------------
 # Regular DMD
 r = reducedRank(X)
 print("Rank reduced ", r)
@@ -73,22 +73,24 @@ Psi = timeEvolve(X[:,0], t, mu, Phi)
 D_dmd = dot(Phi, Psi)
 # animateDMD(gray_video, D_dmd, numFrames, height, width)
 
+#--------------------------------------------------------------
 # Multi-resolution DMD
-
 # DMD on brain
 nodes1 = mrdmd(gray_brain)
 D_mrdmd1 = [dot(*stitch(nodes1, i)) for i in range(5)]
 rD_rec = sum(D_mrdmd1)
 print("rD_rec = ", rD_rec.shape)
 
-# DMD on circle
+# DMD on circle (NOT REQUIRED)
 # nodes2 = mrdmd(binary_cirlce)
 # D_mrdmd2 = [dot(*stitch(nodes2, i)) for i in range(5)]
 
 # total = np.abs(D_mrdmd1) + np.abs(D_mrdmd2)
 # animateMRDMD(gray_video, total, numFrames, height, width)
-
-# animateMRDMD(gray_video, D_mrdmd1, numFrames, height, width)
+#--------------------------------------------------------------
+# Animate MRDMD
+animateMRDMD(gray_video, D_mrdmd1, numFrames, height, width)
 # animateMRDMD(gray_video, D_mrdmd2, numFrames, height, width)
 
+# Compare DMD and MRDMD
 animateCompare(gray_video, D_dmd, rD_rec, numFrames, height, width)

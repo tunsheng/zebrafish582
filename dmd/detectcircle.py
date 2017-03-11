@@ -1,3 +1,5 @@
+# This scripts plots the radius of the white circle as a function of time
+
 import numpy as np
 import matplotlib
 matplotlib.use('Qt4Agg')
@@ -105,3 +107,5 @@ plt.xlabel("Frequency")
 plt.ylabel("Amplitude")
 plt.title("Discrete Cosine Transform")
 plt.show()
+
+np.save("radius.npy", radii)

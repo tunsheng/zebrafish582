@@ -33,7 +33,7 @@ D[1160:1240,50:70] += 2
 D[1320:1400,50:70] += 2
 
 D = D.T
-
+print(D.shape)
 # extract input-output matrices
 X = D[:,:-1]
 Y = D[:,1:]
@@ -43,6 +43,15 @@ Y = D[:,1:]
 r = reducedRank(X)
 mu, Phi = dmd(X,Y,r)
 Psi = timeEvolve(X[:,0], t, mu, Phi)
+
+print("Shape of Phi = ", Phi.shape)
+print("Len of Phi = ", len(Phi))
+plt.figure()
+# plt.imshow(np.abs(Phi), aspect='auto')
+plt.plot(Psi[1,:])
+plt.plot(Psi[:,1])
+plt.show()
+
 D_dmd = dot(Phi, Psi)
 
 # Multi-resolution DMD

@@ -47,7 +47,6 @@ def dmd(X, Y, truncate=None):
 
 # Compute time evolution
 def timeEvolve(X0, t, mu, Phi):
-	# X0 = X[:,0]
 	b = dot(pinv(Phi), X0)
 	Vand = np.vander(mu, len(t), True)
 	return (Vand.T * b).T # aka Psi
